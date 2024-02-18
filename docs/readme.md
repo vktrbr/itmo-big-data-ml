@@ -65,8 +65,9 @@ flowchart LR
 
 ## Containers
 
-![](c4-containers.svg)
+![](./c4-containers.svg)
 
 ## Components
 
-![](c4-components.svg)
+![](./c4-components.svg)
+

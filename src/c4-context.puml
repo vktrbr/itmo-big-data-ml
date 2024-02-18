@@ -1,21 +1,18 @@
 @startuml
-!if %variable_exists("RELATIVE_INCLUDE")
-  !include %get_variable_value("RELATIVE_INCLUDE")/C4_Container.puml
-!else
-  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
-!endif
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 SHOW_PERSON_OUTLINE()
 
-title Context Diagram for Recomendation System
-    Person_Ext(customer, Customer, "A customer of video service, who can watch videos based on their preferences and history")
-    System_Ext(video_service, "Video service", "A service that provides videos to customers")
-    Container(rec_sys, "Recommendation System", "Spark, S3, K8S", "Recommends videos to customers based on their preferences and history")
+title Context Diagram for Recommendation System
 
-Rel(customer, video_service, "Watch videos")
-Rel_Back(customer, video_service, "Suggest video")
-Rel(video_service, rec_sys, "Gives customer watch history")
-Rel_Back(video_service, rec_sys, "Suggest video")
+Person_Ext(customer, "Customer", "Uses video service to watch videos and receive recommendations")
+System_Ext(video_service, "Video Service", "Provides a wide range of videos to customers")
+System(rec_sys, "Recommendation System", "Analyzes customer behavior to suggest personalized video recommendations")
+
+Rel(customer, video_service, "Watches videos")
+Rel(video_service, rec_sys, "Sends watch history & preferences", "Data: JSON/HTTPS")
+Rel(rec_sys, video_service, "Sends personalized recommendations", "Data: JSON/HTTPS")
+Rel_Back(customer, video_service, "Receives recommendations indirectly via Video Service")
 
 SHOW_LEGEND()
 @enduml
